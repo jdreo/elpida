@@ -1,21 +1,6 @@
 $schema: "http://json-schema.org/draft-07/schema#"
 id: "#IOHquery"
 
-# Example of minimal `call` query:
-# {
-#     "query_type":"call",
-#     "solution": [10,10]
-# }
-
-# Example of a complete `call` query:
-# {
-#     "query_type": "call",
-#     "solution": [10,10],
-#     "id": 1,
-#     "timestamp": "2021-12-21T13:40:31-01:00Z",
-#     "remarks": "Pandeora solver v0.0.1"
-# }
-
 type: object # Query sent by the (solver) client to the (IOH) server.
 properties:
     query_type: # Type of the query.
@@ -25,19 +10,9 @@ properties:
             - new_run # Reset the server's logger state and start to log a new run.
             - stop    # Stop the server.
 
-    if: # If query_type == "call".
-        properties:
-            query_type:
-                const: call
-    then: # Require the "solution" property.
-        properties:
-            solution: # The solution for which the objective function value has to be computed.
-                type: array
-                items:
-                    type: number
-                    minItems: 1 # Dimension should be > 0.
-        required:
-            - solution
+    #####################################
+    # Properties for all type of queries:
+    #####################################
 
     id: # A unique identifier of the query (will be sent back by the server within the reply, useful for debugging).
         type: integer
@@ -49,5 +24,113 @@ properties:
     remarks: # Generic comment (e.g. client's version).
         type: string
 
+    ##########################
+    # Properties for new runs:
+    ##########################
+
+    # Example of minimal `new_run` query:
+    # {
+    #     "query_type": "new_run",
+    #     "algorithm": "MyCMA",
+    #     "version": "3.1.4"
+    # }
+
+    # Example of a complete `new_run` query:
+    # {
+    #     "query_type": "new_run",
+    #     "algorithm": "CMA-ES",
+    #     "implementation": "Paradiseo-EDO",
+    #     "version": "104d5dc71",
+    #     "parameters": [
+    #         {"name": "inertia",    "value": 1.2},
+    #         {"name": "covar_init", "value": [1,2,3,4]},
+    #         {"name": "covar_dim",  "value": 2}
+    #     ],
+    #     "id": 1,
+    #     "timestamp": "2022-06-02T11:41:01+02:00Z",
+    #     "remarks": "preliminary test",
+    # }
+
+    if: # If query_type == "new_run"
+        properties:
+            query_type:
+                const: new_run
+    then:
+        properties:
+            # About the algorithm that will make the calls:
+            algorithm: # Name or identifier of the "algorithm" that runs.
+                type: string
+            implementation: # The same algorithm may exists, e.g. in a different language.
+                type: string
+            version: # Semantic version, commit id (e.g. Git commit hash).
+                type: string
+
+            # About its fixed, user-set parameters:
+            parameters:
+                type:array
+                    items:
+                        type: object
+                            properties:
+                                name: # name of the parameter.
+                                    type: string
+                                value:
+                                    type: {} # Whatever.
+       required:
+           - algorithm
+           - version
+
+        # TODO
+        # - current experiment identification
+        # - user/orcid
+        # - manager (manual, hyper-parameter solver, etc.)
+
+    #######################
+    # Properties for calls:
+    #######################
+
+    # Example of minimal `call` query:
+    # {
+    #     "query_type":"call",
+    #     "solution": [10,10]
+    # }
+
+    # Example of a complete `call` query:
+    # {
+    #     "query_type": "call",
+    #     "solution": [10,10],
+    #     "state": [
+    #         {"name": "step_size",         "value": 1.2},
+    #         {"name": "covariance_matrix", "value": [1,2,3,4]},
+    #         {"name": "covar_dim",         "value": 2}
+    #     ],
+    #     "id": 1,
+    #     "timestamp": "2021-12-21T13:40:31-01:00Z",
+    #     "remarks": "Ran on node #05 of the cluster"
+    # }
+
+    if: # If query_type == "call".
+        properties:
+            query_type:
+                const: call
+    then: # Require the "solution" property.
+        properties:
+            solution: # The solution for which the objective function value has to be computed.
+                type: array
+                items: # No type restriction.
+                    minItems: 1 # Dimension should be > 0.
+            state: # List of variables that represents the algorithm's internal state.
+                type:array
+                    items:
+                        type:object
+                            properties:
+                                name: # Name of the state variable.
+                                    type:string
+                                value:
+                                    type: {} # Whatever.
+                
+        required:
+            - solution
+
 required:
     - query_type
+    # id, timestamp and remarks are optionals.

@@ -11,36 +11,10 @@ properties:
             - ack   # Simple acknowledgment.
             - error # Error message.
 
-    if: # If reply_type == "value".
-        properties:
-            reply_type:
-                const: value
-    then: # Require the "value" (and maybe the "solution") properties.
-        properties:
-            value: # The objective function value.
-                type: number
-            solution: # The solution for which the value has been computed (useful for debugging).
-                type: array
-                items:
-                    type: number
-                    minItems: 1 # Dimension should be > 0.
-        required:
-            - value
-            # "solution" is optional.
 
-    if: # If reply_type == "error".
-        properties:
-            reply_type:
-                const: error
-    then: # Require the "message" property.
-        properties:
-            code: # Unique identifier of the error type.
-                type: integer
-            message:
-                type: string
-        required:
-            - message
-            # "code" is optional.
+    #####################################
+    # Properties for all type of replies:
+    #####################################
 
     id: # The unique identifier of the query to which the server replies (useful for debugging).
         type: integer
@@ -52,5 +26,119 @@ properties:
     remarks: # Generic comment (e.g. server's version).
         type: string
 
+
+    #################################
+    # Properties for `ack` replies:
+    #################################
+    
+    # Example of a minimal `ack` reply:
+    # {
+    #     "reply_type": "ack"
+    # }
+    # 
+    # Example of a complete `ack` reply:
+    # {
+    #     "reply_type": "ack",
+    #     "id": 1,
+    #     "timestamp": "2021-12-21T13:40:31-01:00Z",
+    #     "remarks": "Reply to `new_run` query #1"
+    # }
+
+    # if: # If reply_type == "ack".
+    #     properties:
+    #         reply_type:
+    #             const: ack
+    # then:
+    #     properties:
+    # TODO: add OPTION's fields.
+
+
+    #################################
+    # Properties for `value` replies:
+    #################################
+
+    # Example of a minimal `value` reply:
+    # {
+    #     "reply_type": "value",
+    #     "value": [1.0696e6]
+    # }
+    # 
+    # Example of a complete `value` reply:
+    # {
+    #     "reply_type": "value",
+    #     "value": [123.456, 7.89],
+    #     
+    #     "solution": [0,1,1,0],
+    #     "id": 12345,
+    #     "timestamp": "2021-12-21T12:21:12-00:00",
+    #     "remarks": "Ran on node #12 of the cluster"
+    # }
+
+    if: # If reply_type == "value".
+        properties:
+            reply_type:
+                const: value
+    then: # Require the "value" (and maybe the "solution") properties.
+        properties:
+            value: # The objective function(s) value(s).
+                type: array
+                items:
+                    type: number
+                    minItems: 1 # At least one objective
+            solution: # The solution for which the value has been computed (useful for debugging).
+                type: array
+                items:
+                    type: number
+                    minItems: 1 # Dimension should be > 0.
+        required:
+            - value
+            # "solution" is optional.
+
+
+    #################################
+    # Properties for `error` replies:
+    #################################
+
+    # Example of a minimal `error` reply:
+    # {
+    #     "reply_type": "error",
+    #     "message": "ERROR: unknown error."
+    # }
+    # 
+    # Example of a complete `error` reply:
+    # {
+    #     "reply_type": "error",
+    #     "message": "Message is ill-formatted",
+    #     "code": 133,
+    #     "id": 12345,
+    #     "timestamp": "2021-12-21T12:21:12-00:00",
+    #     "remarks": "Here are the details of the error returned by the parser: "
+    # }
+
+    if: # If reply_type == "error".
+        properties:
+            reply_type:
+                const: error
+    then: # Require the "message" property.
+        properties:
+            code: # Unique identifier of the error type.
+                type: integer
+                # Recommened error codes.
+                #   133: Payload Parse (the message was ill-formatted and probably do not honor the Schema)
+                #   134: Payload Type (the server did not expect this query_type)
+                #   135: Payload Incomplete (required field was missing)
+                #   136: Dimension Mismatch (the solution does not have the right dimension)
+                #   137: Solution Mismatch (the solution does not have the correct types of variables)
+                #   138: Not Supported (an unknown field was in the message)
+                #   255: Unknown error
+
+            message:
+                type: string
+        required:
+            - message
+            # "code" is optional.
+
+
 required:
     - reply_type
+    # id, timestamp and remarks are optionals.

@@ -1,0 +1,14 @@
+{
+    "query_type": "new_run",
+    "algorithm": "CMA-ES",
+    "implementation": "Paradiseo-EDO",
+    "version": "104d5dc71",
+    "parameters": [
+        {"name": "inertia",    "value": 1.2},
+        {"name": "covar_init", "value": [1,2,3,4]},
+        {"name": "covar_dim",  "value": 2}
+    ],
+    "id": 1,
+    "timestamp": "2022-06-02T11:41:01+02:00Z",
+    "remarks": "preliminary test",
+}

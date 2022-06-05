@@ -1,0 +1,12 @@
+{
+    "query_type": "call",
+    "solution": [10,10],
+    "state": [
+        {"name": "step_size",         "value": 1.2},
+        {"name": "covariance_matrix", "value": [1,2,3,4]},
+        {"name": "covar_dim",         "value": 2}
+    ],
+    "id": 1,
+    "timestamp": "2021-12-21T13:40:31-01:00Z",
+    "remarks": "Ran on node #05 of the cluster"
+}

@@ -12,7 +12,25 @@ This project provides:
 - an example client in Python.
 
 
-## Messages
+## Protocol
+
+### Definition
+
+The problem is a server and the solver is a client.
+The problem server waits for the solver client to make queries,
+at which it will answer a reply.
+The message payload is formatted in JSON, following the schema given in the
+"Messages" section (see below).
+
+The problem server serves only one problem instance and may expect to be
+initialized by a `new_run` query before accepting `call`(s) to its objective
+function without returning an `error`.
+If the query is well-formed, the server replies with either a `value` or `ack` reply.
+
+The problem server may not implement the `stop` query.
+
+
+## Basics of Messages
 
 ### Definition
 
@@ -23,8 +41,8 @@ A message is a JSON object always holding a `query_type` (string) field.
 
 | `query_type`:| Possible replies:  | Description:
 |--------------|--------------------|-------------------------------------------------------------------------------------|
+| `new_run`    | `ack` or `error`   | The solver ask for (re)seting the logger state.
 | `call`       | `value` or `error` | The solver send a solution and expect its value.
-| `new_run`    | `ack` or `error`   | The solver ask for reseting the logger state.
 | `stop`       | `ack` or `error`   | The solver ask for the server to stop (probably not enabled on production servers).
 
 
@@ -47,7 +65,7 @@ which would be answered by a reply similar to:
 ```json
 {
     "query_type": "value",
-    "value": 21
+    "value": [3.14]
 }
 ```
 
@@ -56,10 +74,22 @@ Optionaly, the `value` reply can send back the solution.
 
 ### Errors
 
+Errors are only emitted from the problem server.
+
 An `error` reply should always provide a description in the `message` (string) field.
 
 Optionally, it can give a `code` (integer), as a unique identifier of the error
 type.
+
+Recommended error types are:
+
+- 133: Payload Parse (the message was ill-formatted and probably do not honor the Schema)
+- 134: Payload Type (the server did not expect this query_type)
+- 135: Payload Incomplete (required field was missing)
+- 136: Dimension Mismatch (the solution does not have the right dimension)
+- 137: Solution Mismatch (the solution does not have the correct types of variables)
+- 138: Not Supported (an unknown field was in the message)
+- 255: Unknown error
 
 
 ### Metadata fields
@@ -127,7 +157,148 @@ An example implementation of a solver client is given in Python in
 `example_client.py`.
 
 
-### Fundamentals
+## More on Messages
+
+### queries
+
+#### `new_run`
+
+Example of minimal `new_run` query:
+
+```json
+{
+    "query_type": "new_run",
+    "algorithm": "MyCMA",
+    "version": "3.1.4"
+}
+```
+
+Example of a complete `new_run` query:
+
+```json
+{
+    "query_type": "new_run",
+    "algorithm": "CMA-ES",
+    "implementation": "Paradiseo-EDO",
+    "version": "104d5dc71",
+    "parameters": [
+        {"name": "inertia",    "value": 1.2},
+        {"name": "covar_init", "value": [1,2,3,4]},
+        {"name": "covar_dim",  "value": 2}
+    ],
+    "id": 1,
+    "timestamp": "2022-06-02T11:41:01+02:00Z",
+    "remarks": "preliminary test",
+}
+```
+
+
+#### `call`
+
+Example of minimal `call` query:
+
+```json
+{
+    "query_type":"call",
+    "solution": [10,10]
+}
+```
+
+Example of a complete `call` query:
+
+```json
+{
+    "query_type": "call",
+    "solution": [10,10],
+    "state": [
+        {"name": "step_size",         "value": 1.2},
+        {"name": "covariance_matrix", "value": [1,2,3,4]},
+        {"name": "covar_dim",         "value": 2}
+    ],
+    "id": 1,
+    "timestamp": "2021-12-21T13:40:31-01:00Z",
+    "remarks": "Ran on node #05 of the cluster"
+}
+```
+
+
+### Replies
+
+#### `ack`
+
+Example of a minimal `ack` reply:
+
+```json
+{
+    "reply_type": "ack"
+}
+```
+
+
+Example of a complete `ack` reply:
+
+```json
+{
+    "reply_type": "ack",
+    "id": 1,
+    "timestamp": "2021-12-21T13:40:31-01:00Z",
+    "remarks": "Reply to `new_run` query #1"
+}
+```
+
+
+#### `value`
+
+Example of a minimal `value` reply:
+
+```json
+{
+    "reply_type": "value",
+    "value": [1.0696e6]
+}
+```
+
+Example of a complete `value` reply:
+
+```json
+{
+    "reply_type": "value",
+    "value": [123.456, 7.89],
+    
+    "solution": [0,1,1,0],
+    "id": 12345,
+    "timestamp": "2021-12-21T12:21:12-00:00",
+    "remarks": "Ran on node #12 of the cluster"
+}
+```
+
+#### `error`
+
+
+Example of a minimal `error` reply:
+
+```json
+{
+    "reply_type": "error",
+    "message": "ERROR: unknown error."
+}
+```
+
+Example of a complete `error` reply:
+
+```json
+{
+    "reply_type": "error",
+    "message": "Message is ill-formatted",
+    "code": 133,
+    "id": 12345,
+    "timestamp": "2021-12-21T12:21:12-00:00",
+    "remarks": "Here are the details of the error returned by the parser: "
+}
+```
+
+
+### Fundamentals of Pipes
 
 Named pipes are special files with blocking input/output, which means that a
 process reading such a file will be suspended until there is something to read.
