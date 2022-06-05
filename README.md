@@ -1,2 +1,223 @@
-# elpida
-Black-box optimization service simplest messages protocol definition and examples.
+# Elpida
+
+The simplest possible messages protocol to connect
+a black-box optimization solver with
+a black-box optimization problem.
+
+This project provides:
+
+- the definition of the protocol,
+- the schema of its messages,
+- examples of messages,
+- an example client in Python.
+
+
+## Messages
+
+### Definition
+
+Messages can be either queries, from the (solver) client to the (problem)
+server; or replies, from the problem (server) to the solver (client).
+
+A message is a JSON object always holding a `query_type` (string) field.
+
+| `query_type`:| Possible replies:  | Description:
+|--------------|--------------------|-------------------------------------------------------------------------------------|
+| `call`       | `value` or `error` | The solver send a solution and expect its value.
+| `new_run`    | `ack` or `error`   | The solver ask for reseting the logger state.
+| `stop`       | `ack` or `error`   | The solver ask for the server to stop (probably not enabled on production servers).
+
+
+### Calls and values
+
+A `call` query holds the solution to be evaluated by the objective function, in
+the form of an array of `number`.
+
+Example of a `call` query message:
+
+```json
+{
+    "query_type":"call",
+    "solution": [10,10]
+}
+```
+
+which would be answered by a reply similar to:
+
+```json
+{
+    "query_type": "value",
+    "value": 21
+}
+```
+
+Optionaly, the `value` reply can send back the solution.
+
+
+### Errors
+
+An `error` reply should always provide a description in the `message` (string) field.
+
+Optionally, it can give a `code` (integer), as a unique identifier of the error
+type.
+
+
+### Metadata fields
+
+All messages have the following optional fields:
+- `id` (integer): a unique identifier of the query (in a reply, refers to the related query),
+  may be useful for debugging;
+- `timestamp` (date-time): date and time of the message;
+- `remarks` (string): generic comment (e.g. current experiment).
+
+
+## Service
+
+Theoretically, the message may be transported through any kind of communication
+channel, be it a simple file read or a network socket.
+The protocol does not enforce anything else than having separated entrypoints for the
+queries and the replies.
+
+However, it is recommended to implement the service and client(s) through the
+use of special files that are provided by modern operating systems: *named
+pipes* (also called *FIFO files*).
+
+Named pipe FIFOs allow to implement synchronous query/reply protocol
+by just using regular reads/writes to files.
+The operating system implements a blocking mechanism on reads/writes,
+which (usually) guarantee that the messages are synchronous.
+This also avoid the need for any synchronization code on your side.
+
+Note that modern tools allow to serve the named pipe as a network socket (see
+below).
+
+In practice, there is one named pipe for queries (in which the client writes and the server
+reads) and one for replies (in which the server writes and the client reads).
+
+
+### Minimal client implementation
+
+Implementation is simple as it just consists in writing (resp. reading) a query
+(resp. reply) file, just as you would do with regular files.
+
+The simplest client, making a single query, can be written in Python as:
+
+```python
+import json
+
+# Forge a JSON `call` query:
+squery = json.dumps( {"query_type":"call", "solution":[0,1,1,0,1]} )
+
+# Send it to the server:
+with open("query",'w') as fd:
+    fd.write(squery)
+
+# Wait for the answer and read it when it's available:
+with open("reply",'r') as fd:
+    sreply = fd.read()
+
+# Decode the JSON:
+jreply = json.loads(sreply)
+
+# Extract the objective function value:
+value = jreply["solution"]
+```
+
+An example implementation of a solver client is given in Python in
+`example_client.py`.
+
+
+### Fundamentals
+
+Named pipes are special files with blocking input/output, which means that a
+process reading such a file will be suspended until there is something to read.
+This allows for very simple I/O code, avoiding polling and complex network
+management: all you have to do to implement a client is to write the query in
+the query file, then read the reply in the reply file.
+The execution will advance only when the reply have been written in the file.
+
+The theoretical principle can be represented by this UML sequence diagram:
+
+```
+            Named pipes
+         ┌───────┴───────┐
+┌──────┐ ┌─────┐   ┌─────┐ ┌──────┐
+│Client│ │reply│   │query│ │Server│
+└───┬──┘ └─┬───┘   └─┬───┘ └───┬──┘
+    │      │         │         │
+    │      │         │  ┌──────╢
+    │      │    block│  │ wait ║
+    │query │         │  └─────→║
+    ├───────────────→│         │
+    ╟─────┐│         ├────────→│
+    ║wait ││block    │         ║process
+    ║←────┘│         │         ║
+    │      │←──────────────────┤
+    │←─────┤         │    reply│
+    │      │         │         │
+    ┊      ┊         ┊         ┊
+```
+
+Note that the service should be started first, waiting for the input.
+
+
+## Going further
+
+### Validate messages
+
+The formal description of a queries is available in
+`elpida-query.schema.yaml`, the one for replies in `elpida-reply.schema.yaml`.
+
+The description follows the [JSON Scehma format (draft
+07)](http://json-schema.org/draft-07/schema), but is presented in the
+(strictly equivalent) YAML format, easier to read for humans and allowing for
+comments.
+
+One can validate any message against those schema, using the
+[Apptainer](https://apptainer.org)
+container defined by `message_validator.apptainer.def`.
+To build this container,
+install apptainer and run `apptainer build message_validator.sif
+message_validator.apptainer.def`.
+To validate a message simply run: `apptainer run message_validator.sif
+<schema.yaml> <message.json>`.
+
+As with all container systems, Apptainer needs a Linux machine.
+If you are on another OS, you may use a virtual machine.
+We recommend you install an Ubuntu virtual machine
+using [Multipass](https://multipass.run/), on which it is easy to install Apptainer.
+
+Note that it is not mandatory to formally validate message to use the Elpida
+protocol, but we strongly recommend you include a validation feature for your
+client or service, at least in debug mode.
+
+
+### Network gateway
+
+If you want to expose such a service as a network server, just use socat.
+
+For example, to get _data_ query from the network for `service1`:
+
+```sh
+socat -v -u TCP-LISTEN:8423,reuseaddr PIPE:./query
+```
+
+You can test it by sending something on the connection:
+
+```sh
+echo "Hello World!" > /dev/tcp/127.0.0.1/8423
+```
+
+Conversely, to send automatically back the answer to some server:
+
+```sh
+socat -v -u PIPE:./reply TCP2:8424:host
+```
+
+Be aware that `socat` will terminate as soon as it receives the end of the message.
+Thus, if you want to establish a permanent gate, you will have to use the `fork`
+option:
+
+```sh
+socat TCP-LISTEN:8478,reuseaddr,fork PIPE:/./query
+```
