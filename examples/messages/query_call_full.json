@@ -7,6 +7,6 @@
         {"name": "covar_dim",         "value": 2}
     ],
     "id": 1,
-    "timestamp": "2021-12-21T13:40:31-01:00Z",
+    "timestamp": "2021-12-21T13:40:31-01:00",
     "remarks": "Ran on node #05 of the cluster"
 }

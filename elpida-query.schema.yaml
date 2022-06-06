@@ -67,17 +67,17 @@ properties:
 
             # About its fixed, user-set parameters:
             parameters:
-                type:array
-                    items:
-                        type: object
-                            properties:
-                                name: # name of the parameter.
-                                    type: string
-                                value:
-                                    type: {} # Whatever.
-       required:
-           - algorithm
-           - version
+                type: array
+                items:
+                    type: object
+                    properties:
+                        name: # name of the parameter.
+                            type: string
+                        value:
+                            type: {} # Whatever.
+        required:
+            - algorithm
+            - version
 
         # TODO
         # - current experiment identification
@@ -119,14 +119,14 @@ properties:
                 items: # No type restriction.
                     minItems: 1 # Dimension should be > 0.
             state: # List of variables that represents the algorithm's internal state.
-                type:array
-                    items:
-                        type:object
-                            properties:
-                                name: # Name of the state variable.
-                                    type:string
-                                value:
-                                    type: {} # Whatever.
+                type: array
+                items:
+                    type: object
+                    properties:
+                        name: # Name of the state variable.
+                            type: string
+                        value:
+                            type: {} # Whatever.
                 
         required:
             - solution

@@ -1,5 +1,6 @@
-Bootstrap: library
-From: ubuntu:20.04
+Bootstrap: debootstrap
+OSVersion: xenial
+MirrorURL: http://fr.archive.ubuntu.com/ubuntu/
 
 %post
 
@@ -38,7 +39,7 @@ From: ubuntu:20.04
 
     # Clean-up
     rm -rf ${tmpdir}
-    apt -y purge software-properties-common nlohmann-json3-dev
+    apt -y purge software-properties-common git g++ cmake make
     apt -y --purge autoremove
     apt -y autoclean
     apt clean
