@@ -101,7 +101,7 @@ All messages have the following optional fields:
 - `remarks` (string): generic comment (e.g. current experiment).
 
 
-## Service
+## Implementation
 
 Theoretically, the message may be transported through any kind of communication
 channel, be it a simple file read or a network socket.
@@ -124,11 +124,19 @@ below).
 In practice, there is one named pipe for queries (in which the client writes and the server
 reads) and one for replies (in which the server writes and the client reads).
 
+On POSIX OS (Linux or MacOS), you can create named FIFO pipes
+with the `mkfifo` command.
 
-### Minimal client implementation
+On Windows, things are more convoluted as the OS supports named pipes
+but does not provide a simple command for creating them.
+You may try some of the
+[solutions proposed on Stack Overflow](https://stackoverflow.com/questions/3670039/is-it-possible-to-open-a-named-pipe-with-command-line-in-windows).
 
-Implementation is simple as it just consists in writing (resp. reading) a query
-(resp. reply) file, just as you would do with regular files.
+
+### Minimal solver client
+
+The recommended implementation is simple as it just consists in writing in a
+`query` file and reading from a `reply` file, just as you would do with regular files.
 
 The simplest client, making a single query, can be written in Python as:
 
@@ -154,7 +162,39 @@ value = jreply["solution"]
 ```
 
 An example implementation of a solver client is given in Python in
-`example_client.py`.
+`examples/python/solver_client.py`.
+
+
+### Minimal problem server
+
+The recommended implementation is simple as it just consists in reading from a
+`query` file and writing in a `reply` file, just as you would do with regular files.
+
+The simplest problem server, answering a single query, can be written in Python as:
+
+```python
+import json
+
+# Wait for a query:
+with open("query",'r') as fd:
+    squery = fd.read()
+
+# Parse the message:
+jquery = json.loads(squery)
+
+# Extract the solution:
+sol = jquery["solution"]
+
+# Compute the value of the objective function:
+val = sum(sol)
+
+# Forge a JSON `value` reply:
+sreply = json.dumps( { "query_type":"value", "value":[val] } )
+
+# Send the reply:
+with open("reply",'w') as fd:
+    fd.write(sreply)
+```
 
 
 ## More on Messages
