@@ -14,7 +14,7 @@ This project provides:
 
 ## Protocol
 
-### Definition
+### General Setting
 
 The problem is a server and the solver is a client.
 The problem server waits for the solver client to make queries,
@@ -22,17 +22,8 @@ at which it will answer a reply.
 The message payload is formatted in JSON, following the schema given in the
 "Messages" section (see below).
 
-The problem server serves only one problem instance and may expect to be
-initialized by a `new_run` query before accepting `call`(s) to its objective
-function without returning an `error`.
-If the query is well-formed, the server replies with either a `value` or `ack` reply.
 
-The problem server may not implement the `stop` query.
-
-
-## Basics of Messages
-
-### Definition
+### Message Types
 
 Messages can be either queries, from the (solver) client to the (problem)
 server; or replies, from the problem (server) to the solver (client).
@@ -46,7 +37,19 @@ A message is a JSON object always holding a `query_type` (string) field.
 | `stop`       | `ack` or `error`   | The solver ask for the server to stop (probably not enabled on production servers).
 
 
-### Calls and values
+### Details
+
+The problem server serves only one problem instance and may expect to be
+initialized by a `new_run` query before accepting `call`(s) to its objective
+function without returning an `error`.
+If the query is well-formed, the server replies with either a `value` or `ack` reply.
+
+The problem server may not implement the `stop` query.
+
+
+## Basics of Messages
+
+### `call` and `value`
 
 A `call` query holds the solution to be evaluated by the objective function, in
 the form of an array of `number`.
@@ -195,6 +198,9 @@ sreply = json.dumps( { "query_type":"value", "value":[val] } )
 with open("reply",'w') as fd:
     fd.write(sreply)
 ```
+
+An example implementation of a problem server is given in Python in
+`examples/python/problem_server.py`.
 
 
 ## More on Messages
