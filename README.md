@@ -1,4 +1,4 @@
-# Elpida
+# ![Elpida logo](elpida_logo.svg) Elpida
 
 The simplest possible messages protocol to connect
 a black-box optimization solver with
@@ -438,3 +438,9 @@ option:
 ```sh
 socat TCP-LISTEN:8478,reuseaddr,fork PIPE:/./query
 ```
+
+# About
+
+The Elpida protocol idea arised jointly in the [IEEE Task Force on "Automated Algorithm Design, Configuration and Selection"](https://sites.google.com/view/ieeeaadcs/home), and in the ["Benchmarked: Optimization Meets Machine Learning" workshop ](https://www.lorentzcenter.nl/benchmarked-optimization-meets-machine-learning.html).
+
+The name "Elpida" means "hope/expectation" in greek (ελπίδα), as a reference to what remain in the (black) "box" in the *Pandora* tale of the ancient greek mythology.
