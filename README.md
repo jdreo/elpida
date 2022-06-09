@@ -365,12 +365,12 @@ The theoretical principle can be represented by this UML sequence diagram:
     │      │         │  ┌──────╢
     │      │    block│  │ wait ║
     │query │         │  └─────→║
-    ├───────────────→│         │
-    ╟─────┐│         ├────────→│
+    ├───────────────>│         │
+    ╟─────┐│         ├────────>│
     ║wait ││block    │         ║process
-    ║←────┘│         │         ║
-    │      │←──────────────────┤
-    │←─────┤         │    reply│
+    ║<────┘│         │         ║
+    │      │<──────────────────┤
+    │<─────┤         │    reply│
     │      │         │         │
     ┊      ┊         ┊         ┊
 ```
@@ -441,6 +441,6 @@ socat TCP-LISTEN:8478,reuseaddr,fork PIPE:/./query
 
 # About
 
-The Elpida protocol idea arised jointly in the [IEEE Task Force on "Automated Algorithm Design, Configuration and Selection"](https://sites.google.com/view/ieeeaadcs/home), and in the ["Benchmarked: Optimization Meets Machine Learning" workshop ](https://www.lorentzcenter.nl/benchmarked-optimization-meets-machine-learning.html).
+The Elpida protocol idea arised jointly in the [IEEE Task Force on "Automated Algorithm Design, Configuration and Selection"](https://sites.google.com/view/ieeeaadcs/home), and in the ["Benchmarked: Optimization Meets Machine Learning"](https://www.lorentzcenter.nl/benchmarked-optimization-meets-machine-learning.html) workshop.
 
 The name "Elpida" means "hope/expectation" in greek (ελπίδα), as a reference to what remain in the (black) "box" in the *Pandora* tale of the ancient greek mythology.
