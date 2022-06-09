@@ -364,7 +364,7 @@ The theoretical principle can be represented by this UML sequence diagram:
     │      │         │         │
     │      │         │  ┌──────╢
     │      │    block│  │ wait ║
-    │query │         │  └─────→║
+    │query │         │  └─────>║
     ├───────────────>│         │
     ╟─────┐│         ├────────>│
     ║wait ││block    │         ║process
