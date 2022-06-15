@@ -84,6 +84,15 @@ An `error` reply should always provide a description in the `message` (string) f
 Optionally, it can give a `code` (integer), as a unique identifier of the error
 type.
 
+Example of error message:
+```
+{
+    "reply_type": "error",
+    "message": "Message is ill-formatted",
+    "code": 133
+}
+```
+
 Recommended error types are:
 
 - 133: Payload Parse (the message was ill-formatted and probably do not honor the Schema)
@@ -92,6 +101,9 @@ Recommended error types are:
 - 136: Dimension Mismatch (the solution does not have the right dimension)
 - 137: Solution Mismatch (the solution does not have the correct types of variables)
 - 138: Not Supported (an unknown field was in the message)
+- 139: Time Out (the objective function computation exceeded time limit)
+- 140: Crashed (computation did not complete, but it is believed another attempt can work)
+- 141: Aborted (computation did not complete, and it is believed that another attempt would also fail)
 - 255: Unknown error
 
 
@@ -160,8 +172,8 @@ with open("reply",'r') as fd:
 # Decode the JSON:
 jreply = json.loads(sreply)
 
-# Extract the objective function value:
-value = jreply["solution"]
+# Extract the objective function values:
+values = jreply["value"] # This is a list.
 ```
 
 An example implementation of a solver client is given in Python in
