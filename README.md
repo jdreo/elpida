@@ -1,13 +1,25 @@
-# ![Elpida logo](elpida_logo.svg) Elpida
+# Elpida
 
 The simplest possible messages protocol to connect
 a black-box optimization solver with
 a black-box optimization problem.
 
+Elpida is designed to be **as simple to use as possible**,
+while providing the most common features.
+It is oriented toward helping *rigourous benchmarking* of algorithms and problems.
+
+If you now how to read/write to a file and to forge JSON messages,
+you should be able to connect the most common problems and solvers,
+whatever the programming language or operating system.
+
+<p align="center">
+    <img width="500" alt="A tree growing out of a black coffer" src="elpida_emblem.svg" />
+</p>
+
 This project provides:
 
 - the definition of the protocol,
-- the schema of its messages,
+- the schema of its messages (useful for validating/debugging),
 - examples of messages,
 - an example client in Python.
 
