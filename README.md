@@ -79,12 +79,17 @@ which would be answered by a reply similar to:
 
 ```json
 {
-    "query_type": "value",
+    "reply_type": "value",
     "value": [3.14]
 }
 ```
 
 Optionaly, the `value` reply can send back the solution.
+
+<p align="center">
+    <img width="640" alt="A green solver box on the left, with arrows going toward a blue server box on the right." src="messages.svg" />
+    <p align="center"><em>Basic sequence diagram of the Elpida protocol.</em></p>
+</p>
 
 
 ### Errors

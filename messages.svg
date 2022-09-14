@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="640"
+   height="480"
+   viewBox="0 0 169.33333 127"
+   version="1.1"
+   id="svg1333"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1184">Elpida protocol sequence diagram</title>
+  <defs
+     id="defs1330">
+    <linearGradient
+       id="linearGradient5943">
+      <stop
+         style="stop-color:#0055d4;stop-opacity:1"
+         offset="0"
+         id="stop5939" />
+      <stop
+         style="stop-color:#0055d4;stop-opacity:0.49620238"
+         offset="1"
+         id="stop5941" />
+    </linearGradient>
+    <marker
+       style="overflow:visible"
+       id="Arrow2"
+       refX="5"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="7.6999998"
+       markerHeight="5.5999999"
+       viewBox="0 0 7.7 5.6"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="M -2,-4 L 9,0 L -2,4 C 0,1.67 0,-1.66 -2,-4 Z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="arrow2L" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1L"
+       refX="5"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="8.75"
+       markerHeight="5"
+       viewBox="0 0 8.75 5"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 0,0 L 5,-5 L -12.5,0 L 5,5 Z"
+         id="arrow1L"
+         transform="scale(-0.5)" />
+    </marker>
+    <marker
+       orient="auto-start-reverse"
+       refY="0"
+       refX="0"
+       id="three_dots"
+       style="overflow:visible"
+       markerWidth="5.5"
+       markerHeight="1.5"
+       viewBox="0 0 5.5 1.5"
+       preserveAspectRatio="xMidYMid">
+      <g
+         id="g1246"
+         transform="scale(0.5)">
+        <circle
+           cx="4"
+           cy="0"
+           r="1"
+           id="circle237"
+           style="fill:context-stroke;stroke:context-stroke" />
+        <circle
+           cx="8"
+           cy="0"
+           r="1"
+           id="circle239"
+           style="fill:context-stroke;stroke:context-stroke" />
+        <circle
+           cx="12"
+           cy="0"
+           r="1"
+           id="circle241"
+           style="fill:context-stroke;stroke:context-stroke" />
+      </g>
+    </marker>
+    <linearGradient
+       xlink:href="#linearGradient5943"
+       id="linearGradient5945"
+       x1="135.73601"
+       y1="68.556618"
+       x2="135.33926"
+       y2="106.98363"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     id="layer1">
+    <path
+       style="fill:none;stroke:#0a0;stroke-width:0.529;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1;opacity:0.5"
+       d="M 34.390951,12.478259 V 34.862642 V 40.18993 V 113.67935"
+       id="path13091" />
+    <path
+       style="fill:none;stroke:#0055d4;stroke-width:0.529;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;marker-end:url(#three_dots);stroke-opacity:1;opacity:0.5"
+       d="M 135.33926,12.742843 L 135.33926,121.06415"
+       id="use3000" />
+    <path
+       style="fill:black;stroke:#0a0;stroke-width:0.529;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#three_dots)"
+       d="M 34.390951,12.478259 V 34.862642 M 34.390951,40.18993 V 62.441099 M 34.390951,67.668219 V 84.721888 M 34.390951,90.060712 V 106.92008 M 34.390951,112.33117 V 121.06415"
+       id="path2690" />
+    <path
+       id="use2582"
+       style="fill:#d5e5ff;stroke:#04a;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round"
+       d="M 105.84309,5.2916665 H 164.04166 V 19.664853 H 105.84309 L 100.55142,12.47826 Z" />
+    <path
+       id="rect1766"
+       style="fill:#d5ffd5;stroke:#0a0;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round"
+       d="M 5.2916665,5.2916665 H 63.490237 L 68.781904,12.47826 L 63.490237,19.664853 H 5.2916665 Z" />
+    <text
+       xml:space="preserve"
+       style="font-size:6.35px;line-height:1.1;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:green;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       x="14.018553"
+       y="14.59596"
+       id="text2428"><tspan
+         id="tspan2426"
+         style="font-size:6.35px;text-align:start;text-anchor:start;fill:green;stroke:none;stroke-width:0.264583"
+         x="14.018553"
+         y="14.59596">Solver/Client</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:6.35px;line-height:1.1;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#003380;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       x="110.1687"
+       y="14.59596"
+       id="text2536"><tspan
+         id="tspan2534"
+         style="font-size:6.35px;text-align:start;text-anchor:start;fill:#003380;stroke:none;stroke-width:0.264583"
+         x="110.1687"
+         y="14.59596">Problem/Server</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.82222px;line-height:1.1;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:black;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       x="69.1782"
+       y="57.664841"
+       id="text2556"><tspan
+         style="font-size:2.82222px;stroke-width:0.264583"
+         x="69.1782"
+         y="57.664841"
+         id="tspan2558"><tspan
+   style="fill:gray"
+   id="tspan2669">{</tspan><tspan
+   style="fill:green"
+   id="tspan11958">&quot;query_type&quot;</tspan><tspan
+   style="fill:gray"
+   id="tspan2671">:</tspan> <tspan
+   style="fill:#04a"
+   id="tspan11976">&quot;call&quot;</tspan><tspan
+   style="fill:gray"
+   id="tspan2673">,</tspan></tspan><tspan
+         style="font-size:2.82222px;stroke-width:0.264583"
+         x="69.1782"
+         y="60.769283"
+         id="tspan2562">  <tspan
+   style="fill:green"
+   id="tspan11960">&quot;solution&quot;</tspan><tspan
+   style="fill:gray"
+   id="tspan2675">: [</tspan><tspan
+   style="fill:#5500d4"
+   id="tspan12086">10</tspan>,<tspan
+   style="fill:#5500d4"
+   id="tspan12192">10</tspan><tspan
+   style="fill:gray"
+   id="tspan2677">] }</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.82222px;line-height:1.1;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:black;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       x="69.1782"
+       y="70.874069"
+       id="text2566"><tspan
+         style="font-size:2.82222px;stroke-width:0.264583"
+         x="69.1782"
+         y="70.874069"
+         id="tspan2568"><tspan
+   style="fill:gray"
+   id="tspan2679">{</tspan><tspan
+   style="fill:green"
+   id="tspan11962">&quot;query_type&quot;</tspan><tspan
+   style="fill:gray"
+   id="tspan2681">:</tspan> <tspan
+   style="fill:#04a"
+   id="tspan11978">&quot;value&quot;</tspan><tspan
+   style="fill:gray"
+   id="tspan2683">,</tspan></tspan><tspan
+         style="font-size:2.82222px;stroke-width:0.264583"
+         x="69.1782"
+         y="73.978508"
+         id="tspan2572">  <tspan
+   style="fill:green"
+   id="tspan11964">&quot;value&quot;</tspan><tspan
+   style="fill:gray"
+   id="tspan2685">: [</tspan><tspan
+   style="fill:#5500d4"
+   id="tspan11980">3.14</tspan><tspan
+   style="fill:gray"
+   id="tspan2687">] }</tspan></tspan></text>
+    <g
+       id="g3740"
+       transform="translate(0,-7.7714682)">
+      <text
+         xml:space="preserve"
+         style="font-size:6.35px;line-height:1.1;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:green;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         x="37.036781"
+         y="39.94709"
+         id="text2540"><tspan
+           id="tspan2538"
+           style="stroke-width:0.264583;fill:green"
+           x="37.036781"
+           y="39.94709">new_run</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:6.35px;line-height:1.1;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#04a;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         x="121.91682"
+         y="54.220634"
+         id="text2544"><tspan
+           id="tspan2542"
+           style="fill:#04a;stroke-width:0.264583"
+           x="121.91682"
+           y="54.220634">ack</tspan></text>
+      <path
+         style="fill:black;stroke:#0a0;stroke-width:0.529;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;marker-end:url(#Arrow1L)"
+         d="M 34.390951,42.592921 H 135.33926"
+         id="path3002" />
+      <path
+         style="fill:black;stroke:#0055d4;stroke-width:0.529;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;marker-end:url(#Arrow2)"
+         d="M 135.33926,47.884588 H 34.39095"
+         id="use3677" />
+    </g>
+    <g
+       id="g3724"
+       transform="translate(0,-17.162689)">
+      <text
+         xml:space="preserve"
+         style="font-size:6.35px;line-height:1.1;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:green;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         x="37.036785"
+         y="77.915749"
+         id="text2548"><tspan
+           id="tspan2546"
+           style="fill:green;stroke-width:0.264583"
+           x="37.036785"
+           y="77.915749">call</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:6.35px;line-height:1.1;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#04a;stroke:none;stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         x="115.95131"
+         y="91.206932"
+         id="text2552"><tspan
+           id="tspan2550"
+           style="fill:#04a;stroke-width:0.264583"
+           x="115.95131"
+           y="91.206932">value</tspan></text>
+      <use
+         x="0"
+         y="0"
+         xlink:href="#path3002"
+         id="use3681"
+         transform="translate(-1e-6,36.910335)" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#use3677"
+         id="use11321"
+         transform="translate(-5.3666667e-7,36.910335)" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:2.82223px;line-height:1.1;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:black;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       x="69.1782"
+       y="27.093946"
+       id="text3687"><tspan
+         style="stroke:none;stroke-width:0.529167"
+         x="69.1782"
+         y="27.093946"
+         id="tspan3689"><tspan
+   style="fill:gray"
+   id="tspan2445">{</tspan><tspan
+   style="fill:green"
+   id="tspan11744">&quot;query_type&quot;</tspan><tspan
+   style="fill:gray"
+   id="tspan2551">:</tspan> <tspan
+   style="fill:#04a"
+   id="tspan11966">&quot;new_run&quot;</tspan><tspan
+   style="fill:gray"
+   id="tspan2665">,</tspan></tspan><tspan
+         style="stroke:none;stroke-width:0.529167"
+         x="69.1782"
+         y="30.1984"
+         id="tspan3691">  <tspan
+   style="fill:green"
+   id="tspan11952">&quot;algorithm&quot;</tspan><tspan
+   style="fill:gray"
+   id="tspan2553">:</tspan> <tspan
+   style="fill:#04a"
+   id="tspan11968">&quot;MyCMA&quot;</tspan><tspan
+   style="fill:gray"
+   id="tspan2667">,</tspan></tspan><tspan
+         style="stroke:none;stroke-width:0.529167"
+         x="69.1782"
+         y="33.302853"
+         id="tspan3695">  <tspan
+   style="fill:green"
+   id="tspan11954">&quot;version&quot;</tspan><tspan
+   style="fill:gray"
+   id="tspan2555">:</tspan> <tspan
+   style="fill:#04a"
+   id="tspan11970">&quot;3.1.4&quot;</tspan><tspan
+   style="fill:gray"
+   id="tspan2549">}</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.82223px;line-height:1.1;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:black;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       x="68.825424"
+       y="43.233692"
+       id="text3703"><tspan
+         style="stroke-width:0.529167"
+         x="68.825424"
+         y="43.233692"
+         id="tspan3707"><tspan
+   style="fill:gray"
+   id="tspan2557">{</tspan><tspan
+   style="fill:green"
+   id="tspan11956">&quot;reply_type&quot;</tspan><tspan
+   style="fill:gray"
+   id="tspan2661">:</tspan> <tspan
+   style="fill:#04a"
+   id="tspan11972">&quot;ack&quot;</tspan><tspan
+   style="fill:gray"
+   id="tspan2663">}</tspan></tspan></text>
+    <use
+       x="0"
+       y="0"
+       xlink:href="#g3724"
+       id="use3726"
+       transform="translate(0,22.310276)"
+       style="opacity:0.5" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#g3724"
+       id="use13129"
+       transform="translate(0,44.620552)"
+       style="opacity:0.25" />
+    <path
+       style="fill:none;stroke:url(#linearGradient5945);stroke-width:0.529;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
+       d="M 135.33926,34.955025 V 40.079875 M 135.33926,62.443505 V 67.642567 M 135.33926,84.729952 V 90.053491 M 135.33926,106.98363 V 112.25509"
+       id="path14241" />
+    <text
+       xml:space="preserve"
+       style="font-size:2.82223px;line-height:1.1;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:start;writing-mode:lr-tb;text-anchor:start;opacity:1;fill:gray;stroke:none;stroke-width:0.529;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       x="82.280457"
+       y="124.73483"
+       id="text14728"><tspan
+         id="tspan14726"
+         style="fill:gray;stroke:none;stroke-width:0.529"
+         x="82.280457"
+         y="124.73483">etc.</tspan></text>
+  </g>
+  <metadata
+     id="metadata1182">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Elpida protocol sequence diagram</dc:title>
+        <dc:date>2022-09-14</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>nojhan</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
